@@ -14,9 +14,21 @@ const iconMap: Record<string, typeof Zap> = {
   Code,
 };
 
+interface TrendingProject {
+  title: string;
+  domain: string;
+  trend: string;
+  icon: string;
+  branch: string;
+  interests: string[];
+  skills: string;
+  projectType: string;
+  difficulty: string;
+}
+
 interface HeroProps {
   onGenerate: () => void;
-  onTrendingClick: (domain: string) => void;
+  onTrendingClick: (project: TrendingProject) => void;
 }
 
 export default function Hero({ onGenerate, onTrendingClick }: HeroProps) {
@@ -104,7 +116,7 @@ export default function Hero({ onGenerate, onTrendingClick }: HeroProps) {
               return (
                 <button
                   key={idea.title}
-                  onClick={() => onTrendingClick(idea.domain)}
+                  onClick={() => onTrendingClick(idea)}
                   className={`group flex items-center gap-2 px-4 py-2.5 rounded-xl border transition-all duration-300 ${
                     isActive
                       ? 'glass border-accent-500/50 scale-105 shadow-lg shadow-accent-500/10'

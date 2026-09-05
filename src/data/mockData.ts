@@ -1,4 +1,4 @@
-import type { ProjectIdea, GenerateInput } from '@/types';
+import type { ProjectIdea, GenerateInput, ComplexityBreakdown } from '@/types';
 
 const ideaTemplates: Record<string, Omit<ProjectIdea, 'id'>[]> = {
   'AI/ML': [
@@ -917,12 +917,10 @@ export function generateMockIdeas(input: GenerateInput): ProjectIdea[] {
 }
 
 export const trendingIdeas = [
-  { title: 'AI-Powered Resume Analyzer', domain: 'AI/ML', trend: 'Hot', icon: 'FileText' },
-  { title: 'Blockchain Supply Chain Tracker', domain: 'Blockchain', trend: 'Rising', icon: 'Link' },
-  { title: 'Smart Traffic Signal System', domain: 'IoT', trend: 'Hot', icon: 'TrafficCone' },
-  { title: 'Mental Health Chatbot', domain: 'App Dev', trend: 'Rising', icon: 'Heart' },
-  { title: 'Deepfake Detection Tool', domain: 'Cybersecurity', trend: 'Hot', icon: 'Shield' },
-  { title: 'AR Interior Design Visualizer', domain: 'AR/VR', trend: 'Rising', icon: 'Box' },
-  { title: 'Stock Market Sentiment Analyzer', domain: 'Data Science', trend: 'Hot', icon: 'TrendingUp' },
-  { title: 'Collaborative Code Editor', domain: 'Web Dev', trend: 'Rising', icon: 'Code' },
+  { title: 'AI Interview Coach', domain: 'AI/ML', trend: 'Hot', icon: 'FileText', branch: 'CSE', interests: ['AI/ML'], skills: 'Python, TensorFlow, NLP', projectType: 'Major', difficulty: 'Advanced' },
+  { title: 'Blockchain Supply Chain Tracker', domain: 'Blockchain', trend: 'Rising', icon: 'Link', branch: 'CSE', interests: ['Blockchain'], skills: 'Solidity, React, Node.js', projectType: 'Major', difficulty: 'Intermediate' },
+  { title: 'Smart Traffic Signal System', domain: 'IoT', trend: 'Hot', icon: 'TrafficCone', branch: 'ECE', interests: ['IoT'], skills: 'Python, OpenCV, ESP32', projectType: 'Major', difficulty: 'Advanced' },
+  { title: 'Mental Health Chatbot', domain: 'App Dev', trend: 'Rising', icon: 'Heart', branch: 'IT', interests: ['App Dev', 'AI/ML'], skills: 'React Native, Python, NLP', projectType: 'Mini', difficulty: 'Beginner' },
+  { title: 'Deepfake Detection Tool', domain: 'Cybersecurity', trend: 'Hot', icon: 'Shield', branch: 'CSE', interests: ['Cybersecurity', 'AI/ML'], skills: 'Python, PyTorch, OpenCV', projectType: 'Major', difficulty: 'Advanced' },
+  { title: 'AR Interior Design Visualizer', domain: 'AR/VR', trend: 'Rising', icon: 'Box', branch: 'CSE', interests: ['AR/VR'], skills: 'React, Three.js, AR.js', projectType: 'Startup Idea', difficulty: 'Intermediate' },
 ];

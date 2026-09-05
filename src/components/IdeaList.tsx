@@ -4,9 +4,12 @@ import {
   ChevronDown, Star, Lightbulb, Code2, Server, Brain, Cpu, Database,
   CheckCircle2, Map, Trophy, IndianRupee, Wrench, ArrowRight, Bookmark,
   BookmarkCheck, FileText, GitCompare, MessageCircle, Layers,
-  Database as DatabaseIcon, Sparkles, Loader2, Wand2, BarChart3
+  Database as DatabaseIcon, Sparkles, Loader2, Wand2, BarChart3,
+  Presentation, Github, Network
 } from 'lucide-react';
 import type { ProjectIdea, DatasetResource, ApiResource, ComplexityBreakdown } from '@/types';
+import CostTimeCalculator from '@/components/CostTimeCalculator';
+import ArchitectureDiagram from '@/components/ArchitectureDiagram';
 
 const techIcons: Record<string, typeof Code2> = {
   frontend: Code2,
@@ -82,10 +85,12 @@ interface IdeaCardProps {
   onChat: () => void;
   onImprove: () => void;
   onDatasets: () => void;
+  onPPT: () => void;
+  onReadme: () => void;
   isImproving: boolean;
 }
 
-function IdeaCard({ idea, index, isSaved, onSave, onExport, onCompare, onChat, onImprove, onDatasets, isImproving }: IdeaCardProps) {
+function IdeaCard({ idea, index, isSaved, onSave, onExport, onCompare, onChat, onImprove, onDatasets, onPPT, onReadme, isImproving }: IdeaCardProps) {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -159,6 +164,16 @@ function IdeaCard({ idea, index, isSaved, onSave, onExport, onCompare, onChat, o
           <ComplexityChart complexity={idea.complexity} />
         </div>
       )}
+
+      {/* Cost & Time Calculator */}
+      <div className="p-6 border-b border-white/5">
+        <CostTimeCalculator idea={idea} />
+      </div>
+
+      {/* Architecture Diagram */}
+      <div className="p-6 border-b border-white/5">
+        <ArchitectureDiagram idea={idea} />
+      </div>
 
       {/* Core Features */}
       <div className="p-6 border-b border-white/5">
@@ -328,6 +343,24 @@ function IdeaCard({ idea, index, isSaved, onSave, onExport, onCompare, onChat, o
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          onClick={onPPT}
+          className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-orange-500/20 text-orange-300 text-sm font-medium hover:border-orange-500/40 transition-all"
+          title="Generate PPT"
+        >
+          <Presentation className="w-4 h-4" />
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={onReadme}
+          className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-white/10 text-gray-400 text-sm font-medium hover:border-white/20 hover:text-gray-200 transition-all"
+          title="Generate README.md"
+        >
+          <Github className="w-4 h-4" />
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={onCompare}
           className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-white/10 text-gray-400 text-sm font-medium hover:border-white/20 hover:text-gray-200 transition-all"
           title="Compare"
@@ -348,10 +381,12 @@ interface IdeaListProps {
   onChat: (idea: ProjectIdea) => void;
   onImprove: (idea: ProjectIdea) => void;
   onDatasets: (idea: ProjectIdea) => void;
+  onPPT: (idea: ProjectIdea) => void;
+  onReadme: (idea: ProjectIdea) => void;
   improvingIds: Set<string>;
 }
 
-export default function IdeaList({ ideas, savedIds, onSave, onExport, onCompare, onChat, onImprove, onDatasets, improvingIds }: IdeaListProps) {
+export default function IdeaList({ ideas, savedIds, onSave, onExport, onCompare, onChat, onImprove, onDatasets, onPPT, onReadme, improvingIds }: IdeaListProps) {
   return (
     <div className="max-w-5xl mx-auto px-6 py-12">
       <div className="text-center mb-10">
@@ -376,6 +411,8 @@ export default function IdeaList({ ideas, savedIds, onSave, onExport, onCompare,
             onChat={() => onChat(idea)}
             onImprove={() => onImprove(idea)}
             onDatasets={() => onDatasets(idea)}
+            onPPT={() => onPPT(idea)}
+            onReadme={() => onReadme(idea)}
             isImproving={improvingIds.has(idea.id)}
           />
         ))}

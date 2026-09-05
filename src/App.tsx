@@ -11,6 +11,8 @@ import CompareModal from '@/components/CompareModal';
 import DatasetsModal from '@/components/DatasetsModal';
 import { generateIdeas, improveIdea, getDatasetsAndApis } from '@/services/gemini';
 import { exportToPDF } from '@/services/pdfExport';
+import { exportToPPT } from '@/services/pptxExport';
+import { downloadReadme } from '@/services/readmeExport';
 import type { ProjectIdea, GenerateInput, Theme, DatasetResource, ApiResource } from '@/types';
 
 type Step = 'hero' | 'form' | 'results';
@@ -134,8 +136,24 @@ export default function App() {
     setDatasetsLoading(false);
   };
 
-  const handleTrendingClick = (_domain: string) => {
-    setStep('form');
+  const handlePPT = (idea: ProjectIdea) => {
+    exportToPPT(idea);
+  };
+
+  const handleReadme = (idea: ProjectIdea) => {
+    downloadReadme(idea);
+  };
+
+  const handleTrendingClick = (project: { branch: string; interests: string[]; skills: string; domain: string; projectType: string; difficulty: string }) => {
+    const input: GenerateInput = {
+      branch: project.branch,
+      interests: project.interests,
+      skills: project.skills,
+      domain: project.domain,
+      projectType: project.projectType,
+      difficulty: project.difficulty,
+    };
+    handleGenerate(input);
   };
 
   const savedIds = new Set(savedIdeas.map((s) => s.id));
@@ -199,6 +217,8 @@ export default function App() {
                   onChat={handleChat}
                   onImprove={handleImprove}
                   onDatasets={handleDatasets}
+                  onPPT={handlePPT}
+                  onReadme={handleReadme}
                   improvingIds={improvingIds}
                 />
                 <div className="max-w-5xl mx-auto px-6 pb-12 flex flex-col sm:flex-row gap-3 justify-center">
